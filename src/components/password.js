@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
+
+
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -42,6 +44,22 @@ const useStyles = makeStyles((theme) => ({
     borderBottomColor: 'orange',
     borderWidth: '8px',
   },
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '200px',
+    position: 'relative',
+  },
+  image: {
+    position: 'absolute',
+    top: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '100%',
+    maxWidth: '200px',
+  },
+
 }));
 
 function PasswordGenerator() {
@@ -49,6 +67,7 @@ function PasswordGenerator() {
   const classes = useStyles({color});
   const [password, setPassword] = useState('');
   const [savedPasswords, setPasswords] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -70,6 +89,9 @@ function PasswordGenerator() {
   }, [color]);
 
   function generatePassword() {
+
+    console.log('Button pressed:', count + 1);
+    setCount(count + 1);
     //Code to generate password
     let lowercase = "abcdefghijklmnopqrstuvwxyz";
     let uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -112,6 +134,11 @@ function PasswordGenerator() {
           className={classes.textField}
           label="Generated Password"
           variant="outlined"
+          InputLabelProps={{
+            style: {
+              color: 'orange',
+            },
+          }}
           value={password}
           disabled
         />
