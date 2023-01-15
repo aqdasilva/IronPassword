@@ -8,9 +8,8 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     left: '5%',
     transform: 'translateX(-50%)',
-    width: '100%',
-    maxWidth: '200px',
-
+    width: '300px',
+    maxWidth: '400px',
   },
 
 }));
