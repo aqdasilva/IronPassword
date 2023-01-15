@@ -1,12 +1,12 @@
 import './App.css';
-import CreatePassword from './components/password';
+import PasswordGenerator from './components/password';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          <CreatePassword />
+          <PasswordGenerator />
         </p>
       </header>
     </div>
