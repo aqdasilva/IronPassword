@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { List, ListItem, ListItemText, makeStyles } from '@material-ui/core';
+import { List, ListItem, ListItemText, makeStyles, Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -31,6 +31,14 @@ const useStyles = makeStyles((theme) => ({
   listHeader: {
     color: 'red',
     fontSize: '24px',
+  },
+  listPaper: {
+    border: 'solid',
+    borderTopColor: 'orange',
+    borderRightColor: 'yellow',
+    borderLeftColor: 'yellow',
+    borderBottomColor: 'orange',
+    borderWidth: '8px',
   },
 }));
 
@@ -95,19 +103,22 @@ function PasswordGenerator() {
         </Button>
       </div>
       <div className={classes.listContainer}>
-        <List
-          subheader={
-            <ListSubheader className={classes.listHeader}>
-                Your Generated Passwords
-            </ListSubheader>
-          }
-          >
-          {savedPasswords.map((p, index) => (
-            <ListItem key={index}>
-              <ListItemText primary={p} />
-            </ListItem>
-          ))}
-        </List>
+        <Paper className={classes.listPaper}>
+          <List
+            subheader={
+              <ListSubheader className={classes.listHeader}>
+                  Your Generated Passwords
+              </ListSubheader>
+            }
+            >
+            {savedPasswords.map((p, index) => (
+              <ListItem key={index}>
+                <ListItemText primary={p} />
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
+       
       </div>
   </div>
   );
