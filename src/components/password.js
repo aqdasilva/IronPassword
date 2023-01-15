@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { List, ListItem, ListItemText, makeStyles, Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -13,9 +13,11 @@ const useStyles = makeStyles((theme) => ({
   },
   TextField: {
     margin: theme.spacing(1),
+    backgroundColor: props => props.color,
   },
   button: {
     margin: theme.spacing(1),
+    backgroundColor: props => props.color,
   },
   listContainer: {
     margin: theme.spacing(1),
@@ -43,9 +45,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PasswordGenerator() {
-  const classes = useStyles();
+  const [color, setColor] = useState('red');
+  const classes = useStyles({color});
   const [password, setPassword] = useState('');
   const [savedPasswords, setPasswords] = useState([]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      switch (color) {
+        case 'red':
+          setColor('orange');
+          break;
+        case 'orange':
+          setColor('yellow');
+          break;
+        case 'yellow':
+          setColor('red');
+          break;
+        default:
+          break;
+      }
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [color]);
 
   function generatePassword() {
     //Code to generate password
@@ -96,7 +118,6 @@ function PasswordGenerator() {
         <Button
           className={classes.button}
           variant="contained"
-          color="primary"
           onClick={generatePassword}
         >
           Generate Password
