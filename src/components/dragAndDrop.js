@@ -1,51 +1,45 @@
-import React from 'react';
-import { useDrag } from 'react-dnd'
+import { makeStyles } from '@material-ui/core/styles';
+import { DndProvider, useDrag } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import Button from '@material-ui/core/Button';
 
-function DragButton({ item }) {
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
+
+function Item({ id }) {
+  const classes = useStyles();
   const [{ isDragging }, drag] = useDrag({
-    item: { type: 'button', item },
+    item: { id, type: 'ITEM' },
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
-  })
+  });
 
   return (
-    <div
+    <Button
       ref={drag}
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        fontWeight: 'bold',
-        cursor: 'move',
-      }}
+      className={classes.button}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
     >
-      {item}
-    </div>
-  )
-}
-
-export default function DragAndDropList() {
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-
-  const handleListItemClick = (index) => {
-    setSelectedIndex(index);
-  };
-
-  return (
-    <div>
-      {items.map((item, index) => (
-        <div
-          key={item}
-          onClick={() => handleListItemClick(index)}
-          style={{
-            display: 'inline-block',
-            padding: '5px',
-            margin: '5px',
-            border: selectedIndex === index ? '1px solid blue' : '1px solid gray',
-          }}
-        >
-          {selectedIndex === index ? <DragButton item={item} /> : item}
-        </div>
-      ))}
-    </div>
+      Drag Me
+    </Button>
   );
 }
+
+function ItemList() {
+  const items = [1, 2, 3, 4, 5];
+
+  return (
+    <DndProvider backend={HTML5Backend}>
+      {items.map(item => (
+        <Item key={item} id={item} />
+      ))}
+    </DndProvider>
+  );
+}
+
+export default ItemList;
+

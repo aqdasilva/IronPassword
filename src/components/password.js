@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { List, ListItem, ListItemText, makeStyles, Paper, Select } from '@material-ui/core';
+import { List, ListItem, ListItemText, makeStyles, Paper} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import { useDrag } from 'react-dnd'
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -134,7 +132,6 @@ function PasswordGenerator() {
     setSelectedIndex(index);
   };
 
-
   return (
     <div className={classes.parentContainer}>
       <div className={classes.container}>
@@ -168,21 +165,20 @@ function PasswordGenerator() {
             }
             >
             {savedPasswords.map((p, index) => (
-              <ListItem 
-              key={index}
-              button
-              selected={selectedIndex === index}
-              onClick={(event) => handleListItemClick(event, index)}
-              className={selectedIndex === index ? classes.selected : null}
-              style={{
-                display: 'inline-block',
-                padding: '5px',
-                margin: '5px',
-                border: selectedIndex === index ? '1px solid blue' : '1px solid gray',
-              }}
-              >
-                <ListItemText primary={p} />
-              </ListItem>
+                  <ListItem 
+                    key={index}
+                    selected={selectedIndex === index}
+                    onClick={(event) => handleListItemClick(event, index)}
+                    className={selectedIndex === index ? classes.selected : null}
+                    style={{
+                      display: 'inline-block',
+                      padding: '5px',
+                      margin: '5px',
+                      border: selectedIndex === index ? '4px solid red' : '1px solid gray',
+                    }}
+                    >
+                    <ListItemText primary={p} />
+                  </ListItem>
             ))}
           </List>
         </Paper>
