@@ -150,6 +150,7 @@ function PasswordGenerator() {
         <Button
           className={classes.button}
           variant="contained"
+          color="primary"
           onClick={generatePassword}
         >
           Generate Password
@@ -182,7 +183,6 @@ function PasswordGenerator() {
             ))}
           </List>
         </Paper>
-       
       </div>
   </div>
   );

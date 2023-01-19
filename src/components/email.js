@@ -60,9 +60,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function EmailGenerator() {
+    const [color, setColor] = useState('red');
   const [email, setEmail] = useState('');
   const [savedEmail, setEmails] = useState([]);
-  const classes = useStyles();
+  const classes = useStyles({color});
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      switch (color) {
+        case 'red':
+          setColor('orange');
+          break;
+        case 'orange':
+          setColor('yellow');
+          break;
+        case 'yellow':
+          setColor('red');
+          break;
+        default:
+          break;
+      }
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [color]);
 
   const handleClick = () => {
     const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -71,7 +92,8 @@ function EmailGenerator() {
     for (let i = 0; i < length; i++) {
         email += characters.charAt(Math.floor(Math.random() * characters.length));
     }
-    setEmail(email + "@gmail.com")
+    setEmail(email + "@gmail.com");
+    setEmails(prevEmails => [...prevEmails, email + "@gmail.com"]);
   }
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
@@ -91,6 +113,7 @@ function EmailGenerator() {
               color: 'orange',
             },
           }}
+          value={email}
           disabled
         />
         <Button
@@ -101,7 +124,6 @@ function EmailGenerator() {
         >
           Generate Gmail
         </Button>
-        <div>{email}</div>
       </div>
     <div className={classes.listContainer}>
         <Paper className={classes.listPaper}>
